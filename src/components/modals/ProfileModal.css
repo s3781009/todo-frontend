@@ -1,0 +1,30 @@
+.flex-container-modal{
+
+    position:fixed;
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+    height: 150px;
+    background-color: white;
+    border-radius: 10%;
+    margin-left:82%;
+    border: 1px solid lightgray;
+    box-shadow: black;
+    justify-content: space-between;
+    margin-top: -4px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.flex-items{
+    margin-left: 10px;
+    font-size: 14px;
+    color: gray;
+
+}
+
+.separator{
+   height: 1px;
+    width: 250px;
+    background-color: darkgray;
+}
