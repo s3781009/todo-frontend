@@ -18,7 +18,7 @@ const Home = (props) => {
   useEffect(async () => {
     const token = await props.token();
     await axios
-      .get("http://192.168.0.173/api/items", {
+      .get("https://go-todo-server.herokuapp.com/api/items", {
         headers: { Authorization: token },
       })
       .then((response) => {
@@ -46,7 +46,7 @@ const Home = (props) => {
   const postItemsApi = async (todo) => {
     const token = await props.token();
     console.log(JSON.stringify(todo));
-    await axios.post("http://192.168.0.173/api/items", todo, {
+    await axios.post("https://go-todo-server.herokuapp.com/api/items", todo, {
       headers: {
         Authorization: token,
       },
@@ -54,7 +54,7 @@ const Home = (props) => {
   };
   const callDeleteItemApi = async (key) => {
     const token = await props.token();
-    await axios.delete("http://192.168.0.173/api/items", {
+    await axios.delete("https://go-todo-server.herokuapp.com/api/items", {
       headers: {
         Authorization: token,
       },
