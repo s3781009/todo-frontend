@@ -9,7 +9,7 @@ ReactDOM.render(
     <Auth0Provider
       domain={"dev-aji86obv.us.auth0.com"}
       clientId={"99fjVAp3HINjYILj5snvIp4262fwl6Ek"}
-      redirectUri={"https://192.168.0.173:3000"}
+      redirectUri={"https://todo-frontened.herokuapp.com"}
       audience="http://api/items"
       scope="openid profile email"
     >
