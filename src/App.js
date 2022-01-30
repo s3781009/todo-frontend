@@ -23,7 +23,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route
-            path="/home"
+            path="/"
             element={
               <Home
                 authorized={isAuthenticated}
@@ -50,7 +50,7 @@ const App = () => {
             }
           />
         </Routes>
-      </BrowserRouter>{" "}
+      </BrowserRouter>
     </div>
   );
 };

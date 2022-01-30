@@ -29,11 +29,13 @@ const Header = (props) => {
     navigate(path);
   };
 
+
+
   return (
     <Fragment>
       <div className="flex-container">
-        <div className="flex-item" onClick={() => toAbout()}>
-          <h3 className="pages">Home</h3>
+        <div className="flex-item">
+          <h3 className="pages" onClick={()=>navigate('/')}>Home</h3>
         </div>
         <div
           className="flex-item"
@@ -41,14 +43,14 @@ const Header = (props) => {
             return <Navigate to="/about" />;
           }}
         >
-          <h3 className="pages">About</h3>
+          <h3 className="pages" onClick={()=>navigate('/about')}>About</h3>
         </div>
         <div className="flex-item">
           <img
             className="profile-image"
             src={image}
             onClick={() => toggleModal()}
-          />
+           />
         </div>
       </div>
       <ProfileModal isClick={click} user={props.user} logout={props.logout} />

@@ -1,5 +1,7 @@
 import React, { Fragment } from "react";
 import "./ProfileModal.css";
+import LogoutIcon from '@mui/icons-material/Logout';
+import {Box, Grid, Typography} from "@mui/material";
 const ProfileModal = (props) => {
   return props.isClick ? (
     <Fragment>
@@ -9,9 +11,10 @@ const ProfileModal = (props) => {
         <div className="separator" />
         <div className="flex-items">Your profile</div>
         <div className="separator" />
-        <div className="flex-items" onClick={props.logout}>
-          Log out
-        </div>
+        <Box margin="10px" display="flex" flexDirection="row">
+        <LogoutIcon  onClick={props.logout}/>
+        <Typography >Log out</Typography>
+        </Box>
       </div>
     </Fragment>
   ) : (

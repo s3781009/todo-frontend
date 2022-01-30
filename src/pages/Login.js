@@ -11,7 +11,7 @@ const Login = (props) => {
   };
   useEffect(() => {
     if (localStorage.getItem("isAuthenticated") === "true") {
-      navigate("/home");
+      navigate("/");
     }
   });
   return (

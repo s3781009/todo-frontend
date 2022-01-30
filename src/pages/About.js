@@ -1,10 +1,12 @@
 import React from "react";
-import { BeatLoader, BounceLoader } from "react-spinners";
+import Header from "../components/Hedear";
 
 const About = (props) => {
   return (
     <div>
-      <BeatLoader loading={true} />
+        <Header/>
+        <h1>About</h1>
+      <p>This is a simple to do web app</p>
     </div>
   );
 };

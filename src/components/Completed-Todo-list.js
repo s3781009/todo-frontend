@@ -1,8 +1,9 @@
 import React from 'react';
+import CompletedTodoItem from "./CompletedTodoItem";
 
 const CompletedTodoList = (props) => {
         const completed = props.completedtodos.map((item)=>(
-            <CompletedTodoList item={item}    key={item.datetime}/>
+            <CompletedTodoItem item={item}    key={item.datetime}/>
 ));
     return (
         <div>
