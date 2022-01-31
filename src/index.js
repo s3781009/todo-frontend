@@ -7,10 +7,10 @@ import { Auth0Provider } from "@auth0/auth0-react";
 ReactDOM.render(
   <React.StrictMode>
     <Auth0Provider
-      domain={"dev-aji86obv.us.auth0.com"}
-      clientId={"99fjVAp3HINjYILj5snvIp4262fwl6Ek"}
-      redirectUri={"https://192.168.0.173:3000"}
-      audience="http://api/items"
+      domain='dev-aji86obv.us.auth0.com'  //use different props for dev and main branch
+      clientId={process.env.REACT_APP_CLIENT_ID}
+      redirectUri={process.env.REACT_APP_REDIRECT_URI}
+      audience={process.env.REACT_APP_AUDIENCE}
       scope="openid profile email"
     >
       <App />

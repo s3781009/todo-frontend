@@ -7,62 +7,22 @@ import { BeatLoader } from "react-spinners";
 import "../components/loading.css";
 import { css } from "@emotion/react";
 import CompletedTodoList from "../components/Completed-Todo-list";
-
+import {CallDeleteItemApi, GetTodosApi, PostItemsApi} from "../api/TodoApi";
+const api = "http://localhost:8000/api/items";
 const Home = (props) => {
   const [input, setInput] = useState("");
   const [todos, setTodos] = useState([]);
   const [completedTodos, setCompletedTodos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [token, setToken] =useState("")
   let navigate = useNavigate();
-  const axios = require("axios");
-  useEffect(async () => {
-    const token = await props.token();
-    await axios
-      .get("https://go-todo-server.herokuapp.com/api/items", {
-        headers: { Authorization: token },
-      })
-      .then((response) => {
-        if (response.data === null) {
-          setTodos([]);
-        } else {
-          let completedItems = [];
-          let notCompletedItems = [];
-          const responseItems = JSON.parse(JSON.stringify(response.data));
-          responseItems.forEach((item) => {
-            if (item.completed) {
-              completedItems.push(item);
-            } else {
-              notCompletedItems.push(item);
-            }
-          });
-          setTodos(notCompletedItems);
-          setCompletedTodos(completedItems);
-        }
-      })
-      .then(() => setLoading(false))
-      .catch((error) => console.log(error.message));
-  }, []);
+  props.token().then(t=>setToken(t));
+  useEffect(()=>{
+   const response= GetTodosApi(props.token,api )
+    if (response==null){
 
-  const postItemsApi = async (todo) => {
-    const token = await props.token();
-    console.log(JSON.stringify(todo));
-    await axios.post("https://go-todo-server.herokuapp.com/api/items", todo, {
-      headers: {
-        Authorization: token,
-      },
-    });
-  };
-  const callDeleteItemApi = async (key) => {
-    const token = await props.token();
-    await axios.delete("https://go-todo-server.herokuapp.com/api/items", {
-      headers: {
-        Authorization: token,
-      },
-      data: {
-        datetime: key,
-      },
-    });
-  };
+    }
+    }, [])
   const handleChange = (e) => {
     setInput(e.target.value);
   };
@@ -78,13 +38,14 @@ const Home = (props) => {
     };
     const newTodos = [newTodo, ...todos];
     setTodos(newTodos);
-    postItemsApi(newTodo).then((r) => "");
+    PostItemsApi(newTodo);
     setInput("");
   };
   const deleteTodo = (key) => {
     const updatedTodo = [...todos].filter((todo) => todo.datetime !== key);
     setTodos(updatedTodo);
-    callDeleteItemApi(key).then((r) => "");
+    console.log(token);
+    CallDeleteItemApi(key, api, token);
   };
   useEffect(() => {
     if (localStorage.getItem("isAuthenticated") === "false") {
@@ -102,7 +63,7 @@ const Home = (props) => {
           input={input}
         />
         <TodoList todos={todos} handleDelete={deleteTodo} />
-        <CompletedTodoList completedtodos={completedTodos}/>
+        <CompletedTodoList completedtodos={completedTodos} />
       </div>
       <BeatLoader loading={loading} color="#e28743" size={30} css={override} />
     </Fragment>

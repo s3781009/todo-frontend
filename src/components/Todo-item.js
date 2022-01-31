@@ -21,7 +21,7 @@ const TodoItem = (props) => {
         <Button
           variant="outlined"
           color="error"
-          onClick={() => props.handleDelete(props.todo.datetime)}
+          onClick={() => props.handleDelete(props.todo.key)}
         ><Delete/>
         </Button>
         <Button variant="outlined" onClick={() => setClicked(true)}>
