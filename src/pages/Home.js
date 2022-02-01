@@ -7,22 +7,25 @@ import { BeatLoader } from "react-spinners";
 import "../components/loading.css";
 import { css } from "@emotion/react";
 import CompletedTodoList from "../components/Completed-Todo-list";
-import {CallDeleteItemApi, GetTodosApi, PostItemsApi} from "../api/TodoApi";
+import { CallDeleteItemApi, GetTodosApi, PostItemsApi } from "../api/TodoApi";
 const api = "http://localhost:8000/api/items";
 const Home = (props) => {
   const [input, setInput] = useState("");
   const [todos, setTodos] = useState([]);
   const [completedTodos, setCompletedTodos] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [token, setToken] =useState("")
+  const [token, setToken] = useState("");
   let navigate = useNavigate();
-  props.token().then(t=>setToken(t));
-  useEffect(()=>{
-   const response= GetTodosApi(props.token,api )
-    if (response==null){
 
-    }
-    }, [])
+    props.token().then((t) => setToken(t));
+useEffect(()=>{
+     GetTodosApi(token, api).then((r) => {
+      setTodos(r.data);
+      console.log(todos)
+       setLoading(false);
+
+    }).catch(e=>console.log(e))},[]
+)
   const handleChange = (e) => {
     setInput(e.target.value);
   };
@@ -38,7 +41,7 @@ const Home = (props) => {
     };
     const newTodos = [newTodo, ...todos];
     setTodos(newTodos);
-    PostItemsApi(newTodo);
+    PostItemsApi(newTodo, api, token);
     setInput("");
   };
   const deleteTodo = (key) => {
@@ -71,7 +74,7 @@ const Home = (props) => {
 };
 const override = css`
   position: absolute;
-  top: 30%;
-  left: 30%;
+  top: 50%;
+  left: 50%;
 `;
 export default Home;

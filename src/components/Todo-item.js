@@ -16,12 +16,12 @@ const TodoItem = (props) => {
         <Card>
           <ListItem alignItems="flex-end">{props.todo.datetime}</ListItem>
         </Card>
-        <ListItem ><Typography fontSize="20">{props.todo.text}</Typography></ListItem>
+        <ListItem >{props.todo.text}</ListItem>
 
         <Button
           variant="outlined"
           color="error"
-          onClick={() => props.handleDelete(props.todo.key)}
+          onClick={() => props.handleDelete(props.todo.datetime)}
         ><Delete/>
         </Button>
         <Button variant="outlined" onClick={() => setClicked(true)}>

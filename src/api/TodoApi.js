@@ -2,9 +2,8 @@ import React from "react";
 import axios from "axios";
 
 export const GetTodosApi = (token, api) => {
-  return () =>
-    axios.get(api, {
-      headers: { Authorization: token },
+     return axios.get(api, {
+        headers: {Authorization: token},
     })
 };
 export const PostItemsApi = (todo, api, token) => {
