@@ -3,21 +3,19 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Login from "./pages/Login";
+import { SetLocalStorageJwt} from "./api/Auth";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import Profile from "./pages/Profile";
 const App = () => {
   const {
     isAuthenticated,
-    user,
+    user, // an object containing details of user provided by the scope
     getAccessTokenSilently,
     logout,
     loginWithPopup,
   } = useAuth0();
-  useEffect(
-    () =>
-      localStorage.setItem("isAuthenticated", JSON.stringify(isAuthenticated)),
-    [isAuthenticated]
-  );
+
+  SetLocalStorageJwt(isAuthenticated);
   return (
     <div>
       <BrowserRouter>
@@ -49,6 +47,15 @@ const App = () => {
               />
             }
           />
+            <Route
+                path="/profile"
+                element={
+                    <Profile
+                        authorized={isAuthenticated}
+                        user={user}
+                    />
+                }
+            />
         </Routes>
       </BrowserRouter>
     </div>

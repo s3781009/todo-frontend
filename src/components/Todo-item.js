@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import UpdateItem from "./UpdateItem";
-import {
-  Button,
-  Card,
-  ListItem,
-  Stack, Typography,
-
-} from "@mui/material";
-import {Delete} from "@mui/icons-material";
+import { Button, Card, ListItem, Stack, Typography } from "@mui/material";
+import { Delete } from "@mui/icons-material";
 const TodoItem = (props) => {
   const [isClicked, setClicked] = useState(false);
   return (
@@ -16,13 +10,14 @@ const TodoItem = (props) => {
         <Card>
           <ListItem alignItems="flex-end">{props.todo.datetime}</ListItem>
         </Card>
-        <ListItem ><Typography fontSize="20">{props.todo.text}</Typography></ListItem>
+        <ListItem>{props.todo.text}</ListItem>
 
         <Button
           variant="outlined"
           color="error"
           onClick={() => props.handleDelete(props.todo.datetime)}
-        ><Delete/>
+        >
+          <Delete />
         </Button>
         <Button variant="outlined" onClick={() => setClicked(true)}>
           {" "}
@@ -31,7 +26,9 @@ const TodoItem = (props) => {
         <Button
           variant="contained"
           color="success"
-          onClick={() => console.log("completed")}
+          onClick={() => {
+            props.completeTodo(props.todo);
+          }}
         >
           Done
         </Button>

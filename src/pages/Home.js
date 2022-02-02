@@ -7,62 +7,46 @@ import { BeatLoader } from "react-spinners";
 import "../components/loading.css";
 import { css } from "@emotion/react";
 import CompletedTodoList from "../components/Completed-Todo-list";
-
+import {CallDeleteItemApi, GetTodosApi, PostItemsApi, UpdateItemsApi} from "../api/TodoApi";
+import axios from "axios";
+import { Box, Divider, Link, Typography } from "@mui/material";
+const api = "http://localhost:8000/api/items";
 const Home = (props) => {
   const [input, setInput] = useState("");
   const [todos, setTodos] = useState([]);
   const [completedTodos, setCompletedTodos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [completedClick, setCompletedClick] = useState(false);
+  const [token, setToken] = useState("");
   let navigate = useNavigate();
-  const axios = require("axios");
-  useEffect(async () => {
-    const token = await props.token();
-    await axios
-      .get("https://go-todo-server.herokuapp.com/api/items", {
+
+  props.token().then((t) => setToken(t));
+  useEffect(() => {
+    axios
+      .get(api, {
         headers: { Authorization: token },
       })
-      .then((response) => {
-        if (response.data === null) {
-          setTodos([]);
-        } else {
-          let completedItems = [];
-          let notCompletedItems = [];
-          const responseItems = JSON.parse(JSON.stringify(response.data));
-          responseItems.forEach((item) => {
-            if (item.completed) {
-              completedItems.push(item);
-            } else {
-              notCompletedItems.push(item);
-            }
-          });
-          setTodos(notCompletedItems);
-          setCompletedTodos(completedItems);
-        }
+      .then((r) => {
+        let items = [];
+        let todoItems = [];
+        let finishedItems = [];
+        items.push(...r.data);
+        items.forEach((item) => {
+          if (item.completed) {
+            finishedItems.push(item);
+          } else {
+            todoItems.push(item);
+          }
+        });
+        setTodos(todoItems);
+        setCompletedTodos(finishedItems);
+        setLoading(false);
       })
-      .then(() => setLoading(false))
-      .catch((error) => console.log(error.message));
-  }, []);
-
-  const postItemsApi = async (todo) => {
-    const token = await props.token();
-    console.log(JSON.stringify(todo));
-    await axios.post("https://go-todo-server.herokuapp.com/api/items", todo, {
-      headers: {
-        Authorization: token,
-      },
-    });
-  };
-  const callDeleteItemApi = async (key) => {
-    const token = await props.token();
-    await axios.delete("https://go-todo-server.herokuapp.com/api/items", {
-      headers: {
-        Authorization: token,
-      },
-      data: {
-        datetime: key,
-      },
-    });
-  };
+      .catch((e) => {
+        console.log(e);
+        setTodos([]);
+      });
+  }, [token]);
   const handleChange = (e) => {
     setInput(e.target.value);
   };
@@ -78,13 +62,22 @@ const Home = (props) => {
     };
     const newTodos = [newTodo, ...todos];
     setTodos(newTodos);
-    postItemsApi(newTodo).then((r) => "");
+    PostItemsApi(newTodo, api, token);
     setInput("");
   };
   const deleteTodo = (key) => {
     const updatedTodo = [...todos].filter((todo) => todo.datetime !== key);
     setTodos(updatedTodo);
-    callDeleteItemApi(key).then((r) => "");
+    CallDeleteItemApi(key, api, token);
+  };
+  const completeTodo = (item) => {
+    item.completed = true;
+    setCompletedTodos([...completedTodos, item]);
+    const updatedTodo = [...todos].filter((item) => item.completed !== true);
+    setTodos(updatedTodo);
+    console.log(item);
+    UpdateItemsApi(item, api, token);
+
   };
   useEffect(() => {
     if (localStorage.getItem("isAuthenticated") === "false") {
@@ -95,14 +88,46 @@ const Home = (props) => {
     <Fragment>
       <div>
         <Header user={props.user} logout={props.logout} />
-        <h1>Home</h1>
+
+        <Box
+          display="flex"
+          flexDirection="row"
+          paddingLeft="5%"
+          marginTop="3%"
+          marginBottom="1%"
+        >
+          <Link
+            underline="hover"
+            variant="h4"
+            onClick={() => setCompletedClick(false)}
+          >
+            To Do List
+          </Link>
+          <Link
+            underline="hover"
+            marginLeft="10%"
+            variant="h4"
+            onClick={() => setCompletedClick(true)}
+          >
+            Completed To Do's
+          </Link>
+        </Box>
+        <Divider />
         <TodoForm
           handleChange={handleChange}
           handleSubmit={handleSubmit}
           input={input}
         />
-        <TodoList todos={todos} handleDelete={deleteTodo} />
-        <CompletedTodoList completedtodos={completedTodos}/>
+        <TodoList
+          todos={todos}
+          handleDelete={deleteTodo}
+          completeTodo={completeTodo}
+          completedClick={completedClick}
+        />
+        <CompletedTodoList
+          completedtodos={completedTodos}
+          completedClick={completedClick}
+        />
       </div>
       <BeatLoader loading={loading} color="#e28743" size={30} css={override} />
     </Fragment>
@@ -110,7 +135,7 @@ const Home = (props) => {
 };
 const override = css`
   position: absolute;
-  top: 30%;
-  left: 30%;
+  top: 50%;
+  left: 50%;
 `;
 export default Home;
