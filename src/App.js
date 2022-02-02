@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import { SetLocalStorageJwt} from "./api/Auth";
 import { useAuth0 } from "@auth0/auth0-react";
 import Profile from "./pages/Profile";
+import "./App.css"
 const App = () => {
   const {
     isAuthenticated,
@@ -17,7 +18,7 @@ const App = () => {
 
   SetLocalStorageJwt(isAuthenticated);
   return (
-    <div>
+    <div className="app">
       <BrowserRouter>
         <Routes>
           <Route
