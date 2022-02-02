@@ -5,6 +5,7 @@ import About from "./pages/About";
 import Login from "./pages/Login";
 import { SetLocalStorageJwt} from "./api/Auth";
 import { useAuth0 } from "@auth0/auth0-react";
+import Profile from "./pages/Profile";
 const App = () => {
   const {
     isAuthenticated,
@@ -46,6 +47,15 @@ const App = () => {
               />
             }
           />
+            <Route
+                path="/profile"
+                element={
+                    <Profile
+                        authorized={isAuthenticated}
+                        user={user}
+                    />
+                }
+            />
         </Routes>
       </BrowserRouter>
     </div>

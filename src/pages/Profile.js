@@ -1,13 +1,14 @@
-import React, {Fragment} from 'react';
-import {Grid} from "@mui/material";
+import React, { Fragment } from "react";
+import { Grid } from "@mui/material";
+import Header from "../components/Hedear";
 
-const Profile = () => {
-
-    return (
+const Profile = (props) => {
+  return (
     <Fragment>
-       <Grid></Grid>
+      <Header user={props.user}/>
+      <p>{props.user}</p>
     </Fragment>
-    );
+  );
 };
 
 export default Profile;
