@@ -5,10 +5,11 @@ import { Delete } from "@mui/icons-material";
 const TodoItem = (props) => {
   const [isClicked, setClicked] = useState(false);
   return (
+
     <Card>
       <Stack spacing={2} direction="row" margin={2}>
         <Card>
-          <ListItem alignItems="flex-end">{props.todo.datetime}</ListItem>
+          <ListItem alignItems="center">{props.todo.datetime}</ListItem>
         </Card>
         <ListItem>{props.todo.text}</ListItem>
 

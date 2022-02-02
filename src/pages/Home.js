@@ -86,7 +86,7 @@ const Home = (props) => {
   });
   return (
     <Fragment>
-      <div>
+      <Box sx={{ color: "grey"} }>
         <Header user={props.user} logout={props.logout} />
 
         <Box
@@ -128,7 +128,7 @@ const Home = (props) => {
           completedtodos={completedTodos}
           completedClick={completedClick}
         />
-      </div>
+      </Box>
       <BeatLoader loading={loading} color="#e28743" size={30} css={override} />
     </Fragment>
   );

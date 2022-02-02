@@ -5,15 +5,17 @@ import { Box, Card, Container } from "@mui/material";
 
 const TodoList = (props) => {
   const listItems = props.todos.map((todo) => (
+      <Box marginY="10px" >
     <TodoItem
       todo={todo}
       key={todo.datetime}
       handleDelete={props.handleDelete}
       completeTodo={props.completeTodo}
     />
+      </Box>
   ));
 
-  return !props.completedClick ? <Card>{listItems}</Card> : <Fragment />;
+  return !props.completedClick ? <Box marginX="20px" >{listItems}</Box> : <Fragment />;
 };
 
 export default TodoList;
