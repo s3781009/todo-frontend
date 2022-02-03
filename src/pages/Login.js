@@ -16,11 +16,11 @@ const Login = (props) => {
     if (localStorage.getItem("isAuthenticated") === "true") {
       navigate("/");
     }
-  },[]);
+  },[props.authorized]);
   return (
     <Box display="flex" flexDirection="row">
       <Box>
-        <Button onClick={(e)=>handleClick(e)}>login</Button>
+        <Button onClick={(e)=>handleClick(e)}>logind</Button>
       </Box>
     </Box>
   );
