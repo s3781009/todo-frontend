@@ -7,10 +7,10 @@ import { BeatLoader } from "react-spinners";
 import "../components/loading.css";
 import { css } from "@emotion/react";
 import CompletedTodoList from "../components/Completed-Todo-list";
-import {CallDeleteItemApi, GetTodosApi, PostItemsApi, UpdateItemsApi} from "../api/TodoApi";
+import {CallDeleteItemApi, PostItemsApi, UpdateItemsApi} from "../api/TodoApi";
 import axios from "axios";
-import { Box, Divider, Link, Typography } from "@mui/material";
-const api = "http://localhost:8000/api/items";
+import { Box, Divider, Link} from "@mui/material";
+const api = "https://go-todo-server.herokuapp.com/api/items";
 const Home = (props) => {
   const [input, setInput] = useState("");
   const [todos, setTodos] = useState([]);

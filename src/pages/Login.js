@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import "./login.css"
+import pic from "../assets/1567665.png"
+import {Box, Button, Typography} from "@mui/material";
 const Login = (props) => {
   const [loggedIn, setLoggedIn] = useState(
     JSON.parse(localStorage.getItem("isAuthenticated"))
@@ -13,13 +16,13 @@ const Login = (props) => {
     if (localStorage.getItem("isAuthenticated") === "true") {
       navigate("/");
     }
-  });
+  },[]);
   return (
-    <div>
-      <h1>this is the login page</h1>
-      <button onClick={(event) => handleClick(event)}>Click here</button>
-      <p>to sign up or create a free account</p>
-    </div>
+    <Box display="flex" flexDirection="row">
+      <Box>
+        <Button onClick={(e)=>handleClick(e)}>login</Button>
+      </Box>
+    </Box>
   );
 };
 
