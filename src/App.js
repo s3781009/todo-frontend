@@ -16,7 +16,8 @@ const App = () => {
     loginWithPopup,
   } = useAuth0();
 
-  SetLocalStorageJwt(isAuthenticated);
+
+
   return (
     <div className="app">
       <BrowserRouter>
