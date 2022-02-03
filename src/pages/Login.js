@@ -11,12 +11,12 @@ const Login = (props) => {
   const handleClick = (event) => {
     event.preventDefault();
     props.login();
+    navigate("/");
   };
-  useEffect(() => {
-    if (localStorage.getItem("isAuthenticated") === "true") {
-      navigate("/");
-    }
-  },[props.authorized]);
+
+
+
+
   return (
     <Box display="flex" flexDirection="row">
       <Box>
